@@ -46,7 +46,7 @@ body.landing{
      -moz-transition-delay: 0.2s;
      transition-delay: 0.2s;
 }
-.pointTwo {
+.topDown {
      -webkit-transform: scaleX(-0.9) translateY-(3rem);
      -moz-transform: scaleX(-0.9) translateY(-3rem);
      transform: scaleX(-0.9) translateY(-3rem);
@@ -54,7 +54,7 @@ body.landing{
      -moz-transition: all 2.35s cubic-bezier(.57, -0.37, .61, -0.39);
      transition: all 2.35s cubic-bezier(.57, -0.37, .61, -0.39);}
 
-.pointThree {
+.bottomUpSlow {
      -webkit-transition: all 3.35s cubic-bezier(.57, -0.37, .61, -0.39);
      -moz-transition: all 3.35s cubic-bezier(.57, -0.37, .61, -0.39);
      transition: all 3.35s cubic-bezier(.57, -0.37, .61, -0.39);}
