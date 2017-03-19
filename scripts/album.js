@@ -30,6 +30,22 @@
      ]
  };
 
+// My Salmple Album
+ var albumRanch = {
+     title: 'Wide Open Spaces',
+     artist: 'Duke Moloski',
+     label: 'Sony',
+     year: '1930',
+     albumArtUrl: 'assets/images/album_covers/03.png',
+     songs: [
+         { title: 'Fishin In the Dark', duration: '2:01' },
+         { title: 'Riding at Sunrise', duration: '4:59' },
+         { title: 'Mike likes my Horsey References', duration: '3:22'},
+         { title: 'Swimmin In The Pond', duration: '3:34' },
+         { title: 'Moonlight on the Meadow', duration: '3:12'}
+     ]
+ };
+
 var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -66,5 +82,22 @@ var createSongRow = function(songNumber, songName, songLength) {
  };
  
  window.onload = function() {
-     setCurrentAlbum(albumMarconi);
+     setCurrentAlbum(albumRanch);
  };
+
+var currentAlbum = document.getElementsByClassName("album-cover-art");
+var x = 0
+
+function GetNextAlbum() {
+    if (x == 0){setCurrentAlbum(albumPicasso); x++;}
+    else if (x == 1){setCurrentAlbum(albumMarconi); x++;}
+    else {setCurrentAlbum(albumRanch); x = 0;}
+}
+
+for (var i = 0; i < currentAlbum.length;  i++){
+    currentAlbum[i].addEventListener("click", GetNextAlbum);
+}
+
+
+
+
