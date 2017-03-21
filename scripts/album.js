@@ -86,16 +86,21 @@ var createSongRow = function(songNumber, songName, songLength) {
  };
 
 var currentAlbum = document.getElementsByClassName("album-cover-art");
+var albumArray = [albumMarconi, albumPicasso, albumRanch]
 var x = 0
 
-function GetNextAlbum() {
+/*function getNextAlbum(x) {
     if (x == 0){setCurrentAlbum(albumPicasso); x++;}
     else if (x == 1){setCurrentAlbum(albumMarconi); x++;}
     else {setCurrentAlbum(albumRanch); x = 0;}
-}
+}*/
 
 for (var i = 0; i < currentAlbum.length;  i++){
-    currentAlbum[i].addEventListener("click", GetNextAlbum);
+    currentAlbum[i].addEventListener("click", function(){ 
+        x++;
+        if (x == 3){x = 0};
+        return setCurrentAlbum(albumArray[x]);
+    });
 }
 
 
