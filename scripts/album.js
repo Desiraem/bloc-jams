@@ -66,12 +66,14 @@ var createSongRow = function(songNumber, songName, songLength) {
  };
  
 var findParentByClassName = function(element, name){
-   var x = element.parentNode;  
+    if (!element){
+        return undefined;
+    }
    
-    while (x.className !== name && x.className !== null) {
-      x = x.parentNode;
-    } 
-   return x;
+    if (element.classList.contains(name){
+        return element;
+    }
+        return findParentByClassName(element.parentElement, name);
 };
 
 
