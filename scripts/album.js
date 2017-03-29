@@ -70,10 +70,11 @@ var findParentByClassName = function(element, name){
         return undefined;
     }
    
-    if (element.classList.contains(name){
+    if (element.classList.contains(name)){
         return element;
     }
-        return findParentByClassName(element.parentElement, name);
+    return findParentByClassName(element.parentElement, name);
+    
 };
 
 
@@ -122,7 +123,7 @@ var clickHandler = function(targetElement) {
     }
 };
 
-var songListContatiner = document.getElementsByClassName('album-view-song-list')[0];
+var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
 
 var songRows = document.getElementsByClassName('album-view-song-item');
  
@@ -134,7 +135,7 @@ var currentlyPlayingSong = null;
 window.onload = function() {
      setCurrentAlbum(albumMarconi);
 
-    songListContatiner.addEventListener('mouseover', function(event){
+    songListContainer.addEventListener('mouseover', function(event){
         if (event.target.parentElement.className === 'album-view-song-item') {
             var songItem = getSongItem(event.target);
             
