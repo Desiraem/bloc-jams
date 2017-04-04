@@ -1,7 +1,7 @@
 //var pointsArray = document.getElementsByClassName('point');
 
 //var animatePoints = function(points) {
-var animatePoints = function(){}
+var animatePoints = function(){
     /* var revealPoint = function(ptnum) {
          points[ptnum].style.opacity = 1;
          points[ptnum].style.transform = "scaleX(1) translateY(0)";
