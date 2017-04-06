@@ -79,6 +79,44 @@ var trackIndex = function(album,song) {
     return album.songs.indexOf(song);
 };
 
+var nextPreviousSong = function(event) {
+    var currentIndex = trackIndex(currentAlbum, currentSongFromAlbum);
+    var previousIndex = currentIndex;
+    if ($(this).index() == 2){
+        currentIndex += 1;
+        if (currentIndex >= currentAlbum.songs.length) {
+            currentIndex = 0;
+        }
+    } else {
+        currentIndex -= 1;
+        if (currentIndex < 0) {
+            currentIndex = (currentAlbum.songs.length - 1);
+        }
+ 
+    }
+
+    songNumberClicked = (currentIndex + 1);
+    
+    var $currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
+    
+    if (currentlyPlayingSongNumber === null) {
+        setSong(songNumberClicked);
+        $currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
+        $currentlyPlayingSongElement.html(pauseButtonTemplate);
+        updatePlayerBarSong();
+    } else if (currentlyPlayingSongNumber !== songNumberClicked) {
+        $currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
+        $currentlyPlayingSongElement.html($currentlyPlayingSongElement.attr('data-song-number'));
+        setSong(songNumberClicked);
+
+        $currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
+        $currentlyPlayingSongElement.html(pauseButtonTemplate);
+        
+        updatePlayerBarSong();
+    }
+};
+
+/*
 var nextSong = function() {
     var currentIndex = trackIndex(currentAlbum, currentSongFromAlbum);
     var previousIndex = currentIndex;
@@ -135,6 +173,7 @@ var previousSong = function() {
         updatePlayerBarSong();
     }
 };
+*/
 
 var setSong = function(songNumber){
     currentlyPlayingSongNumber = songNumber;
@@ -168,8 +207,8 @@ var $nextButton = $('.main-controls .next');
 
 $(document).ready(function() {    
     setCurrentAlbum(albumMarconi);
-    $previousButton.click(previousSong);
-    $nextButton.click(nextSong);
+    $previousButton.click(nextPreviousSong);
+    $nextButton.click(nextPreviousSong);
 });
 
     
