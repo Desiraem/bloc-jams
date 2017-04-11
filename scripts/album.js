@@ -17,16 +17,28 @@ var createSongRow = function(songNumber, songName, songLength) {
             $(this).html(pauseButtonTemplate);
             setSong(songNumberClicked);
             updatePlayerBarSong();
+            currentSoundFile.play()
         } else if (currentlyPlayingSongNumber === songNumberClicked) {
-            $(this).html(playButtonTemplate);
-            currentlyPlayingSongNumber = null;
-            currentSongFromAlbum = null;
-            $('.main-controls .play-pause').html(playerBarPlayButton);
+            
+            if (currentSoundFile.isPaused()){
+                currentSoundFile.play();
+                $(this).html(pauseButtonTemplate);
+                $('.main-controls .play-pause').html(playerBarPauseButtonButton);}
+                else { currentSoundFile.pause();
+                      $(this).html(playButtonTemplate);
+                      $('.main-controls .play-pause').html(playerBarPlayButton);
+            }
+            //currentlyPlayingSongNumber = null;
+            //currentSongFromAlbum = null;
+            
         } else if (currentlyPlayingSongNumber !== songNumberClicked) {
             var $currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
             $currentlyPlayingSongElement.html($currentlyPlayingSongElement.attr('data-song-number'));
             $(this).html(pauseButtonTemplate);
+            currentSoundFile.stop();
+            
             setSong(songNumberClicked);
+            currentSoundFile.play();
             updatePlayerBarSong();
         }
         
@@ -93,6 +105,7 @@ var nextSong = function() {
     
     if (currentlyPlayingSongNumber === null) {
         setSong(songNumberClicked);
+        currentSoundFile.play();
         $currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
         $currentlyPlayingSongElement.html(pauseButtonTemplate);
         updatePlayerBarSong();
@@ -100,6 +113,7 @@ var nextSong = function() {
         $currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
         $currentlyPlayingSongElement.html($currentlyPlayingSongElement.attr('data-song-number'));
         setSong(songNumberClicked);
+        currentSoundFile.play();
 
         $currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
         $currentlyPlayingSongElement.html(pauseButtonTemplate);
@@ -123,12 +137,14 @@ var previousSong = function() {
     if (currentlyPlayingSongNumber === null) {
         $currentlyPlayingSongElement.html(pauseButtonTemplate);
         setSong(songNumberClicked);
+        currentSoundFile.play();
         updatePlayerBarSong();
     } else if (currentlyPlayingSongNumber !== songNumberClicked) {
         $currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
         $currentlyPlayingSongElement.html($currentlyPlayingSongElement.attr('data-song-number'));
         setSong(songNumberClicked);
-
+        
+        currentSoundFile.play();
         $currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
         $currentlyPlayingSongElement.html(pauseButtonTemplate);
         
@@ -137,8 +153,23 @@ var previousSong = function() {
 };
 
 var setSong = function(songNumber){
+    if (currentSoundFile) {
+        currentSoundFile.stop();
+    }
     currentlyPlayingSongNumber = songNumber;
     currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+    currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
+        formats: [ 'mp3' ],
+        preload: true
+    });
+    
+    setVolume(currentVolume);
+};
+
+var setVolume = function(volume) {
+    if (currentSoundFile) {
+        currentSoundFile.setVolume(volume);
+    }
 };
 
 var getSongNumberCell = function(number) {
@@ -161,13 +192,15 @@ var playerBarPauseButton = '<span class="ion-pause"></span>';
 var currentAlbum = null;
 var currentlyPlayingSongNumber = null;
 var currentSongFromAlbum = null;
+var currentSoundFile = null;
+var currentVolume = 80;
 var songNumberClicked = null;
 
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
 
 $(document).ready(function() {    
-    setCurrentAlbum(albumMarconi);
+    setCurrentAlbum(albumPicasso);
     $previousButton.click(previousSong);
     $nextButton.click(nextSong);
 });
