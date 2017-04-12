@@ -153,18 +153,21 @@ var previousSong = function() {
 };
 
 var togglePlayFromPlayerBar = function(){
-    
-    $currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
+    if (currentlyPlayingSongNumber === null){
+        nextSong()
+    } else {
 
-    if (currentSoundFile.isPaused()){
-        currentSoundFile.play();
-        $currentlyPlayingSongElement.html(pauseButtonTemplate);
-        $(this).html(playerBarPauseButtonButton);}
-        else { currentSoundFile.pause();
-              $currentlyPlayingSongElement.html(playButtonTemplate);
-              $(this).html(playerBarPlayButton);
+        $currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
+
+        if (currentSoundFile.isPaused()){
+            currentSoundFile.play();
+            $currentlyPlayingSongElement.html(pauseButtonTemplate);
+            $(this).html(playerBarPauseButtonButton);}
+            else { currentSoundFile.pause();
+                  $currentlyPlayingSongElement.html(playButtonTemplate);
+                  $(this).html(playerBarPlayButton);
+        }
     }
-    
 };
 
 var setSong = function(songNumber){
