@@ -271,9 +271,7 @@ var updatePlayerBarSong = function(){
         $('.main-controls .play-pause').html(playerBarPauseButton);        
     };
 
-var updateVolumeBar = function(){
-    $(document).find()
-};
+
  
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
