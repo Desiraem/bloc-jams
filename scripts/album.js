@@ -4,7 +4,7 @@ var createSongRow = function(songNumber, songName, songLength) {
         '<tr class="album-view-song-item">'
       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber +  '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
-      + '  <td class="song-item-duration">' + songLength + '</td>'
+      + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
       + '</tr>'
       ;
  
@@ -105,7 +105,7 @@ var updateSeekBarWhileSongPlays = function() {
             //#11
             var seekBarFillRatio = this.getTime() / this.getDuration();
             var $seekBar = $('.seek-control .seek-bar');
-            
+            setCurrentTimeInPlayerBar(filterTimeCode(this.getTime()));
             updateSeekPercentage($seekBar, seekBarFillRatio);
         });
     }
@@ -264,11 +264,26 @@ var getSongNumberCell = function(number) {
     return $('.song-item-number[data-song-number="' + number + '"]');
 };
 
+var setCurrentTimeInPlayerBar = function(currentTime) {
+       $(document).find(".currently-playing .current-time").text(currentTime); 
+};
+
+var setTotalTimeInPlayerBar = function(currentTime) {
+       $(document).find(".currently-playing .total-time").text(currentTime); 
+};
+
+var filterTimeCode = function(timeInSeconds) {
+    var minutes = Math.floor(parseFloat(timeInSeconds) / 60);
+    var seconds = Math.floor(parseFloat(timeInSeconds) % 60);
+    return (minutes + ':' + seconds)
+};
+
 var updatePlayerBarSong = function(){
         $(document).find(".currently-playing .song-name").text(currentSongFromAlbum.title);
         $(document).find(".currently-playing .artist-name").text(currentAlbum.artist);
         $(document).find(".currently-playing .artist-song-mobile").text(currentAlbum.artist + ' - ' + currentSongFromAlbum.title);
-        $('.main-controls .play-pause').html(playerBarPauseButton);        
+        $('.main-controls .play-pause').html(playerBarPauseButton); 
+        setTotalTimeInPlayerBar(filterTimeCode(currentSongFromAlbum.duration));
     };
 
 var updateVolumeBar = function(){
