@@ -23,7 +23,7 @@ var createSongRow = function(songNumber, songName, songLength) {
             if (currentSoundFile.isPaused()){
                 currentSoundFile.play();
                 $(this).html(pauseButtonTemplate);
-                $('.main-controls .play-pause').html(playerBarPauseButtonButton);}
+                $('.main-controls .play-pause').html(playerBarPauseButton);}
                 else { currentSoundFile.pause();
                       $(this).html(playButtonTemplate);
                       $('.main-controls .play-pause').html(playerBarPlayButton);
@@ -153,16 +153,13 @@ var previousSong = function() {
 };
 
 var togglePlayFromPlayerBar = function(){
-    if (currentlyPlayingSongNumber === null){
-        nextSong()
-    } else {
-
+    if (currentlyPlayingSongNumber !== null){
         $currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSongNumber);
 
         if (currentSoundFile.isPaused()){
             currentSoundFile.play();
             $currentlyPlayingSongElement.html(pauseButtonTemplate);
-            $(this).html(playerBarPauseButtonButton);}
+            $(this).html(playerBarPauseButton);}
             else { currentSoundFile.pause();
                   $currentlyPlayingSongElement.html(playButtonTemplate);
                   $(this).html(playerBarPlayButton);
